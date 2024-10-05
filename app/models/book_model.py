@@ -27,12 +27,11 @@ class Book:
             return None
 
     @staticmethod
-    def link_book_to_villain(book_id, villain_id):
+    def link_book_to_villain(book_title, villain_name):
         query = """
-        INSERT INTO book_villain (book_id, villain_id)
-        VALUES (%s, %s)
+        INSERT INTO book_villain (book_title, villain_name) VALUES (%s, %s)
         """
-        values = (book_id, villain_id)
+        values = (book_title, villain_name)
 
         try:
             cursor.execute(query, values)

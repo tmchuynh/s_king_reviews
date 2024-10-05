@@ -43,7 +43,7 @@ const findVillain = (data) => {
         if (err) {
             console.error('Error finding data in database:', err);
         } else {
-            console.log('Found villian in database with ID:', results.insertId);
+            console.log('Found villian in database with ID:', results[0].id);
         }
     })
 }
@@ -65,7 +65,7 @@ const insertVillains = (data) => {
 // Function to insert data into the MySQL database
 const insertBooks = (data) => {
   const query = 'INSERT INTO books (title, year, publisher, pages, isbn) VALUES (?, ?, ?, ?, ?)';
-    connection.query(query, [data.title, data.year, data.publisher, data.pages, data.isbn], (err, results) => {
+    connection.query(query, [data.Title, data.Year, data.Publisher, data.Pages, data.ISBN], (err, results) => {
         if (err) {
             console.error('Error inserting data into database:', err);
         } else {
@@ -73,6 +73,18 @@ const insertBooks = (data) => {
         }
     });
 };
+
+const book_villain = (book_title, villain_name) => {
+  const query = 'INSERT INTO book_villain (book_title, villain_name) VALUES (?, ?)';
+  connection.query(query, [book_title, villain_name], (err, results) => {
+    if (err) {
+      console.error('Error inserting data into database:', err);
+    }
+    else {
+      console.log('Insert relationship between book and villain for: ', results);
+    }
+  })
+}
 
 // Main function to orchestrate the fetch and insert
 const main = async () => {
@@ -85,15 +97,25 @@ const main = async () => {
         //     }
         // })
 
+        // const books = await fetchBooksFromAPI();
+        // const data = books.data;
+        // data.forEach(book => {
+        //   insertBooks(book)
+        // })
+
         const books = await fetchBooksFromAPI();
         const data = books.data;
         data.forEach(book => {
-            for (let i = 0; i <= book.villains.length; i++) {
-                let villain = book.villains[i].name;
-                findVillain(villain);
+          console.log(book)
+          if (book.villains.length > 0) {
+            for (let i = 0; i < book.villains.length; i++) {
+              let villain = book.villains[i].name;
+              console.log(book.villains[i].name)
+              console.log(book.id)
+              book_villain(book.Title, book.villains[i].name)
             }
+          }
         })
-
   } catch (error) {
       console.error('Error in main execution:', error);
   } finally {
