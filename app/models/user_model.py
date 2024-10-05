@@ -22,14 +22,8 @@ class User:
 
     @staticmethod
     def add_user(name, email):
-        connection = get_db_connection()
-        cursor = connection.cursor()
-
         cursor.execute("INSERT INTO users (name, email) VALUES (%s, %s)", (name, email))
-        connection.commit()
-
-        cursor.close()
-        close_db_connection(connection)
+        db.commit()
 
     @staticmethod
     def update_user(user_id, name=None, email=None):
@@ -54,14 +48,8 @@ class User:
 
     @staticmethod
     def delete_user(user_id):
-        connection = get_db_connection()
-        cursor = connection.cursor()
-
         cursor.execute("DELETE FROM users WHERE id = %s", (user_id,))
-        connection.commit()
-
-        cursor.close()
-        close_db_connection(connection)
+        db.commit()
 
     @staticmethod
     def add_book_to_user_collection(user_id, book_id):
@@ -73,21 +61,25 @@ class User:
         cursor.execute(query, values)
         db.commit()
 
+    @staticmethod
+    def add_user_review(user_id, book_id, review, rating):
+        query = """
+        INSERT INTO user_book_reviews (user_id, book_id, review, rating)
+        VALUES (%s, %s, %s, %s)
+        """
+        values(user_id, book_id, review, rating)
+        cursor.execute(query, values)
+        db.commit()
+
 
     @staticmethod
     def get_books_for_user(user_id):
-        connection = get_db_connection()
-        cursor = connection.cursor()
-
         # Retrieve books for a specific user
         cursor.execute("""
             SELECT b.* FROM books b
             JOIN user_books ub ON b.id = ub.book_id
             WHERE ub.user_id = %s
         """, (user_id,))
-        books = cursor.fetchall()
+        results = cursor.fetchall()
 
-        cursor.close()
-        close_db_connection(connection)
-
-        return [Book(**book) for book in books]  # Convert dicts to Book objects
+        return results  # Convert dicts to Book objects
