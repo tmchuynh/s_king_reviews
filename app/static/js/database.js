@@ -105,14 +105,15 @@ const main = async () => {
         const data = books.data; // Extract the data field from the response
         // Loop through each book and insert them into the database
         data.forEach(book => {
-          insertBooks(book); // Insert book data
-          if (book.villains.length > 0) { // Check if the book has associated villains
-            // Loop through each villain related to the book and create the relationship
-            for (let i = 0; i < book.villains.length; i++) {
-              let villain = book.villains[i].name; // Get the villain name
-              book_villain(book.Title, villain); // Insert relationship between book and villain
-            }
-          }
+            console.log(book)
+          // insertBooks(book); // Insert book data
+          // if (book.villains.length > 0) { // Check if the book has associated villains
+          //   // Loop through each villain related to the book and create the relationship
+          //   for (let i = 0; i < book.villains.length; i++) {
+          //     let villain = book.villains[i].name; // Get the villain name
+          //     book_villain(book.Title, villain); // Insert relationship between book and villain
+          //   }
+          // }
         });
 
   } catch (error) {
