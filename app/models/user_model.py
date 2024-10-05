@@ -45,7 +45,6 @@ class User:
         cursor.execute(query, values)
         db.commit()
 
-
     @staticmethod
     def delete_user(user_id):
         cursor.execute("DELETE FROM users WHERE id = %s", (user_id,))
