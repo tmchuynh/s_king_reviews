@@ -8,7 +8,6 @@ load_dotenv()
 def create_app():
     app = Flask(__name__, static_folder='static', template_folder='templates')
 
-    # Configure the SQLAlchemy part of the app
     db_url = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -16,7 +15,3 @@ def create_app():
     app.secret_key = os.getenv('SECRET_KEY') or secrets.token_hex(48)
 
     return app
-
-def get_database_url():
-    app = create_app()
-    return app.config['SQLALCHEMY_DATABASE_URI']
