@@ -7,9 +7,9 @@ name = "pypi"
 flask = "*"
 mysql-connector-python = "*"
 pipenv = "*"
-mysqlx-connector-python = "*"
 pip = "*"
 pandas = "*"
+numpy = "*"
 
 [dev-packages]
 

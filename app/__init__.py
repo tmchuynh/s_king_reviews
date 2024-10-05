@@ -24,10 +24,7 @@ def create_app():
 
     cursor = db.cursor(dictionary=True)
 
-    # Set up SQLAlchemy (if you're using it)
-    db_url = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # Application configuration
     app.config['DEBUG'] = True
     app.secret_key = os.getenv('SECRET_KEY') or secrets.token_hex(48)
 
