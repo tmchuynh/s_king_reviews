@@ -95,9 +95,9 @@ const main = async () => {
         const villains = await fetchVillainsFromAPI(); // Fetch villains data from the API
         const data = villains.data; // Extract the data field from the response
         // Loop through each villain and insert them into the database
-        data.forEach(villian => {
-            if (villian.books.length > 0) { // Check if the villain has associated books
-                insertVillains(villian); // Insert villain data
+        data.forEach(villains => {
+            if (villains.books.length > 0) { // Check if the villain has associated books
+                insertVillains(villains); // Insert villain data
             }
         });
 
