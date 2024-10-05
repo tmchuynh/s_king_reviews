@@ -44,21 +44,6 @@ const fetchBooksFromAPI = async () => {
   }
 };
 
-// Function to find a villain by name in the database
-const findVillain = (data) => {
-    const query = "SELECT id FROM villains WHERE name = ? LIMIT 1"; // Query to select villain ID
-    // Execute the query with the provided villain name
-    connection.query(query, [data], (err, results) => {
-        if (err) {
-            // Log any errors encountered while querying
-            console.error('Error finding data in database:', err);
-        } else {
-            // Log the found villain ID
-            console.log('Found villain in database with ID:', results[0].id);
-        }
-    });
-}
-
 // Function to insert a villain into the MySQL database
 const insertVillains = (data) => {
   const query = 'INSERT INTO villains (name, gender, status) VALUES (?, ?, ?)'; // SQL insert query
