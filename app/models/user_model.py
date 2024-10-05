@@ -1,11 +1,11 @@
 from . import get_db_connection, close_db_connection
 
 class User:
-    def __init__(self, id, name, email):
+    def __init__(self, id, name, email, book_id):
         self.id = id
         self.name = name
         self.email = email
-        self.collection = book_id
+        self.book = book_id
 
     @staticmethod
     def get_all_users():

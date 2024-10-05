@@ -8,7 +8,7 @@ class Book:
         self.publisher = publisher
         self.pages = pages
         self.isbn = isbn
-        self.villian_id = villian_id
+        self.villian = villian_id
 
     @staticmethod
     def get_all_books():
