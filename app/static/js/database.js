@@ -93,27 +93,26 @@ const book_villain = (book_title, villain_name) => {
 const main = async () => {
   try {
         const villains = await fetchVillainsFromAPI(); // Fetch villains data from the API
-        const data = villains.data; // Extract the data field from the response
+        const villains_data = villains.data; // Extract the data field from the response
         // Loop through each villain and insert them into the database
-        data.forEach(villains => {
-            if (villains.books.length > 0) { // Check if the villain has associated books
-                insertVillains(villains); // Insert villain data
+        villains_data.forEach(villain => {
+            if (villain.books.length > 0) { // Check if the villain has associated books
+                insertVillains(villain); // Insert villain data
             }
         });
 
         const books = await fetchBooksFromAPI();  // Fetch books data from the API
-        const data = books.data; // Extract the data field from the response
+        const books_data = books.data; // Extract the data field from the response
         // Loop through each book and insert them into the database
-        data.forEach(book => {
-            console.log(book)
-          // insertBooks(book); // Insert book data
-          // if (book.villains.length > 0) { // Check if the book has associated villains
-          //   // Loop through each villain related to the book and create the relationship
-          //   for (let i = 0; i < book.villains.length; i++) {
-          //     let villain = book.villains[i].name; // Get the villain name
-          //     book_villain(book.Title, villain); // Insert relationship between book and villain
-          //   }
-          // }
+        books_data.forEach(book => {
+          insertBooks(book); // Insert book data
+          if (book.villains.length > 0) { // Check if the book has associated villains
+            // Loop through each villain related to the book and create the relationship
+            for (let i = 0; i < book.villains.length; i++) {
+              let villain = book.villains[i].name; // Get the villain name
+              book_villain(book.Title, villain); // Insert relationship between book and villain
+            }
+          }
         });
 
   } catch (error) {
