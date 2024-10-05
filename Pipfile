@@ -6,12 +6,9 @@ name = "pypi"
 [packages]
 flask = "*"
 mysql-connector-python = "*"
-pymysql = "*"
 pipenv = "*"
 mysqlx-connector-python = "*"
-autopep8 = "*"
-pep8 = "*"
-pyjslint = "*"
+pip = "*"
 
 [dev-packages]
 
