@@ -9,6 +9,7 @@ mysql-connector-python = "*"
 pipenv = "*"
 mysqlx-connector-python = "*"
 pip = "*"
+pandas = "*"
 
 [dev-packages]
 
