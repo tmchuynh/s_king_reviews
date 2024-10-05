@@ -37,58 +37,44 @@ const fetchBooksFromAPI = async () => {
   }
 };
 
+const findVillains = (data) => {
+    for (let i = 0; i < data.length; i++) {
+        console.log("")
+    }
+}
+
 // Function to insert data into the MySQL database
 const insertVillains = (data) => {
   const query = 'INSERT INTO villians (name, gender, status) VALUES (data.name, data.gender, data.status)';
-  data.forEach(book => {
-      const { name, gender, status } = book;
-      connection.query(query, [name, gender, status], (err, results) => {
-          if (err) {
-              console.error('Error inserting data into database:', err);
-          } else {
-              console.log('Inserted villian:', results.insertId);
-          }
-      });
-  });
+
+    connection.query(query, [name, gender, status], (err, results) => {
+        if (err) {
+            console.error('Error inserting data into database:', err);
+        } else {
+            console.log('Inserted villian:', results.insertId);
+        }
+    });
 };
 
 // Function to insert data into the MySQL database
-const insertBooks = (data, villains) => {
-	for (let i = 0; i < villains.length; i++) {
-		const query = 'SELECT * FROM villains'
-	}
+const insertBooks = (data) => {
   const query = 'INSERT INTO books (title, year, publisher, pages, isbn) VALUES (data.Title, data.Year, data.Publisher, data.Pages, data.ISBN)';
-  data.forEach(book => {
-      const { title, year, publisher, pages, isbn } = book;
-      connection.query(query, [title, year, publisher, pages, isbn], (err, results) => {
-          if (err) {
-              console.error('Error inserting data into database:', err);
-          } else {
-              console.log('Inserted book:', results.insertId);
-          }
-      });
-  });
+    connection.query(query, [title, year, publisher, pages, isbn], (err, results) => {
+        if (err) {
+            console.error('Error inserting data into database:', err);
+        } else {
+            console.log('Inserted book:', results.insertId);
+        }
+    });
 };
 
 // Main function to orchestrate the fetch and insert
 const main = async () => {
   try {
 		const villains = await fetchVillainsFromAPI(); // Fetch villains data
-		console.log(villains.data[5])
 		for (let i = 0; i < villains.length; i++) {
 			if (villains.data[i].books.length > 0) {
 				insertVillains(data[i])
-			}
-		}
-
-		const books = await fetchBooksFromAPI(); // Fetch books data
-		for (let i = 0; i < books.length; i++) {
-			let villains = []
-			if (books.data[i].villains.length > 0) {
-				for (let j = 0; j < books.data[i].villains; j++) {
-					villains.push(books.data[i].villains[j].name);
-					insertBooks(books.data[i], villains)
-				}
 			}
 		}
   } catch (error) {
