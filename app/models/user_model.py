@@ -1,37 +1,24 @@
-from . import get_db_connection, close_db_connection
-
 class User:
-    def __init__(self, id, name, email, book_id):
+    def __init__(self):
         self.id = id
         self.name = name
         self.email = email
-        self.book = book_id
+        self.created_on = created_on
+        self.updated_on = updated_on
 
     @staticmethod
     def get_all_users():
-        connection = get_db_connection()
-        cursor = connection.cursor()
-
-        cursor.execute("SELECT * FROM users")
-        users = cursor.fetchall()
-
-        cursor.close()
-        close_db_connection(connection)
-
-        return [User(**user) for user in users]  # Convert dicts to User objects
+        query = """SELECT * FROM users"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+        return results
 
     @staticmethod
     def get_user_by_id(user_id):
         connection = get_db_connection()
-        cursor = connection.cursor()
-
-        cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
-        user_data = cursor.fetchone()
-
-        cursor.close()
-        close_db_connection(connection)
-
-        return User(**user_data) if user_data else None  # Return None if user not found
+        cursor.execute(query, (user_id,))
+        user = cursor.fetchone()
+        return user # Return None if user not found
 
     @staticmethod
     def add_user(name, email):
@@ -45,15 +32,25 @@ class User:
         close_db_connection(connection)
 
     @staticmethod
-    def update_user(user_id, name, email):
-        connection = get_db_connection()
-        cursor = connection.cursor()
+    def update_user(user_id, name=None, email=None):
+        query = "UPDATE users SET "
+        updates = []
+        values = []
 
-        cursor.execute("UPDATE users SET name = %s, email = %s WHERE id = %s", (name, email, user_id))
-        connection.commit()
+        if name:
+            updates.append("name = %s")
+            values.append(name)
 
-        cursor.close()
-        close_db_connection(connection)
+        if email:
+            updates.append("email = %s")
+            values.append(email)
+
+        query += ", ".join(updates) + ", updated_on = NOW() WHERE id = %s"
+        values.append(user_id)
+
+        cursor.execute(query, values)
+        db.commit()
+
 
     @staticmethod
     def delete_user(user_id):
@@ -67,16 +64,15 @@ class User:
         close_db_connection(connection)
 
     @staticmethod
-    def add_book_to_user(user_id, book_id):
-        connection = get_db_connection()
-        cursor = connection.cursor()
+    def add_book_to_user_collection(user_id, book_id):
+        query = """
+        INSERT INTO user_book_collection (user_id, book_id, added_on)
+        VALUES (%s, %s, NOW())
+        """
+        values = (user_id, book_id)
+        cursor.execute(query, values)
+        db.commit()
 
-        # Here, we assume there is a user_books table to represent the many-to-many relationship
-        cursor.execute("INSERT INTO user_books (user_id, book_id) VALUES (%s, %s)", (user_id, book_id))
-        connection.commit()
-
-        cursor.close()
-        close_db_connection(connection)
 
     @staticmethod
     def get_books_for_user(user_id):

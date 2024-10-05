@@ -34,16 +34,16 @@ class Villian:
         return Villian(**villian_data) if villian_data else None  # Return None if villian not found
 
     @staticmethod
-    def add_villian(name, gender, status):
-        connection = get_db_connection()
-        cursor = connection.cursor()
+    def insert_villain(name, gender, status):
+        query = """
+        INSERT INTO villains (name, gender, status)
+        VALUES (%s, %s, %s)
+        """
+        values = (name, gender, status)
+        cursor.execute(query, values)
+        db.commit()
+        return cursor.lastrowid
 
-        cursor.execute("INSERT INTO villians (name, gender, status) VALUES (%s, %s, %s)",
-                       (name, gender, status))
-        connection.commit()
-
-        cursor.close()
-        close_db_connection(connection)
 
     @staticmethod
     def update_villian(villian_id, name, gender, status):

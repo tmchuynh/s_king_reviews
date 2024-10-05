@@ -38,7 +38,14 @@ const fetchBooksFromAPI = async () => {
 };
 
 const findVillain = (data) => {
-
+    const query = "SELECT id FROM villains WHERE name = ? LIMIT 1";
+    connection.query(query, [data], (err, results) => {
+        if (err) {
+            console.error('Error finding data in database:', err);
+        } else {
+            console.log('Found villian in database with ID:', results.insertId);
+        }
+    })
 }
 
 // Function to insert data into the MySQL database
@@ -81,11 +88,9 @@ const main = async () => {
         const books = await fetchBooksFromAPI();
         const data = books.data;
         data.forEach(book => {
-            if (book.villains.length > 0) {
-                for (let i = 0; i < book.villains.length; i++) {
-                    let villain = book.villains[i].name;
-                    findVillain(villain);
-                }
+            for (let i = 0; i <= book.villains.length; i++) {
+                let villain = book.villains[i].name;
+                findVillain(villain);
             }
         })
 
