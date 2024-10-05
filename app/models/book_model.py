@@ -1,4 +1,5 @@
 from app import db, cursor
+import mysql.connector
 
 class Book:
     def __init__(self, id, title, year, publisher, pages, isbn):
@@ -20,7 +21,7 @@ class Book:
         try:
             cursor.execute(query, values)
             db.commit()
-            return cursor.lastrowid
+            return cursor.lastrowid  # Return the ID of the inserted book
         except mysql.connector.Error as err:
             print("Error inserting book:", err)
             db.rollback()  # Rollback in case of error
@@ -41,13 +42,13 @@ class Book:
             db.rollback()  # Rollback in case of error
 
     @staticmethod
-    def get_books():
+    def get_all_books():
         query = "SELECT * FROM books"
 
         try:
             cursor.execute(query)
-            books = cursor.fetchall()
-            return books
+            results = cursor.fetchall()
+            return [Book(**book) for book in results]  # Convert dicts to Book objects
         except mysql.connector.Error as err:
             print("Error fetching books:", err)
             return []
@@ -58,20 +59,20 @@ class Book:
 
         try:
             cursor.execute(query, (book_id,))
-            book = cursor.fetchone()
-            return book
+            result = cursor.fetchone()
+            return Book(**result) if result else None  # Convert dict to Book object
         except mysql.connector.Error as err:
             print("Error fetching book:", err)
             return None
 
     @staticmethod
-    def get_book_by_name(name):
-        query = "SELECT * FROM books WHERE name = %s"
+    def get_book_by_title(title):
+        query = "SELECT * FROM books WHERE title = %s"
 
         try:
-            cursor.execute(query, (name,))
-            book = cursor.fetchone()
-            return book
+            cursor.execute(query, (title,))
+            result = cursor.fetchone()
+            return Book(**result) if result else None  # Convert dict to Book object
         except mysql.connector.Error as err:
             print("Error fetching book:", err)
             return None
