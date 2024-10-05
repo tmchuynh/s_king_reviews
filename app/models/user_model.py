@@ -5,6 +5,7 @@ class User:
         self.id = id
         self.name = name
         self.email = email
+        self.collection = book_id
 
     @staticmethod
     def get_all_users():
