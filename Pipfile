@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 flask = "*"
+mysql-connector-python = "*"
+pymysql = "*"
+pipenv = "*"
+mysqlx-connector-python = "*"
+autopep8 = "*"
 
 [dev-packages]
 

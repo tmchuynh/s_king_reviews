@@ -9,7 +9,7 @@ class User:
     @staticmethod
     def get_all_users():
         connection = get_db_connection()
-        cursor = connection.cursor(dictionary=True)
+        cursor = connection.cursor()
 
         cursor.execute("SELECT * FROM users")
         users = cursor.fetchall()
@@ -22,22 +22,9 @@ class User:
     @staticmethod
     def get_user_by_id(user_id):
         connection = get_db_connection()
-        cursor = connection.cursor(dictionary=True)
+        cursor = connection.cursor()
 
         cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
-        user_data = cursor.fetchone()
-
-        cursor.close()
-        close_db_connection(connection)
-
-        return User(**user_data) if user_data else None  # Return None if user not found
-
-    @staticmethod
-    def get_user_by_name(name):
-        connection = get_db_connection()
-        cursor = connection.cursor(dictionary=True)
-
-        cursor.execute("SELECT * FROM users WHERE name = %s", (name,))
         user_data = cursor.fetchone()
 
         cursor.close()
