@@ -1,3 +1,5 @@
+from app import db, cursor
+
 class Villain:
     def __init__(self, id, name, gender, status):
         self.id = id

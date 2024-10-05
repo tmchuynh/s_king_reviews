@@ -1,3 +1,5 @@
+from app import db, cursor
+
 class User:
     def __init__(self):
         self.id = id
