@@ -64,3 +64,33 @@ class User:
 
         cursor.close()
         close_db_connection(connection)
+
+    @staticmethod
+    def add_book_to_user(user_id, book_id):
+        connection = get_db_connection()
+        cursor = connection.cursor()
+
+        # Here, we assume there is a user_books table to represent the many-to-many relationship
+        cursor.execute("INSERT INTO user_books (user_id, book_id) VALUES (%s, %s)", (user_id, book_id))
+        connection.commit()
+
+        cursor.close()
+        close_db_connection(connection)
+
+    @staticmethod
+    def get_books_for_user(user_id):
+        connection = get_db_connection()
+        cursor = connection.cursor()
+
+        # Retrieve books for a specific user
+        cursor.execute("""
+            SELECT b.* FROM books b
+            JOIN user_books ub ON b.id = ub.book_id
+            WHERE ub.user_id = %s
+        """, (user_id,))
+        books = cursor.fetchall()
+
+        cursor.close()
+        close_db_connection(connection)
+
+        return [Book(**book) for book in books]  # Convert dicts to Book objects
