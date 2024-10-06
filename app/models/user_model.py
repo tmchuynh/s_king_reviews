@@ -1,6 +1,6 @@
 from app import db, cursor
 import mysql.connector
-from ./book_model import Book
+from book_model import Book
 
 class User:
     def __init__(self, id=None, name=None, email=None, created_on=None, updated_on=None):
