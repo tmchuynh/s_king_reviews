@@ -11,37 +11,6 @@ class Book:
         self.isbn = isbn
 
     @staticmethod
-    def insert_book(title, year, publisher, pages, isbn):
-        query = """
-        INSERT INTO books (title, year, publisher, pages, isbn)
-        VALUES (%s, %s, %s, %s, %s)
-        """
-        values = (title, year, publisher, pages, isbn)
-
-        try:
-            cursor.execute(query, values)
-            db.commit()
-            return cursor.lastrowid  # Return the ID of the inserted book
-        except mysql.connector.Error as err:
-            print("Error inserting book:", err)
-            db.rollback()  # Rollback in case of error
-            return None
-
-    @staticmethod
-    def link_book_to_villain(book_title, villain_name):
-        query = """
-        INSERT INTO book_villain (book_title, villain_name) VALUES (%s, %s)
-        """
-        values = (book_title, villain_name)
-
-        try:
-            cursor.execute(query, values)
-            db.commit()
-        except mysql.connector.Error as err:
-            print("Error linking book to villain:", err)
-            db.rollback()  # Rollback in case of error
-
-    @staticmethod
     def get_all_books():
         query = "SELECT * FROM books"
 
@@ -75,4 +44,31 @@ class Book:
             return Book(**result) if result else None  # Convert dict to Book object
         except mysql.connector.Error as err:
             print("Error fetching book:", err)
+            return None
+
+    @staticmethod
+    def get_book_by_isbn(isbn):
+        query = "SELECT * FROM books WHERE isbn = %s"
+
+        try:
+            cursor.execute(query, (isbn,))
+            result = cursor.fetchone()
+            return Book(**result) if result else None  # Convert dict to Book object
+        except mysql.connector.Error as err:
+            print("Error fetching book:", err)
+            return None
+
+    @staticmethod
+    def get_book_villains(book_id):
+        query = """
+            SELECT * from books
+            JOIN book_villain ON books.title = book_villain.book_title
+            WHERE books.id = %s
+        """
+        try:
+            cursor.execute(query, (book_id,))
+            result = cursor.fetchall()
+            return [Book(**result) if result else None]
+        except mysql.connector.Error as err:
+            print("Error fetching villains:", err)
             return None

@@ -1,5 +1,6 @@
 from app import db, cursor
 import mysql.connector
+from ./book_model import Book
 
 class User:
     def __init__(self, id=None, name=None, email=None, created_on=None, updated_on=None):
@@ -29,6 +30,17 @@ class User:
             return user  # Return None if user not found
         except mysql.connector.Error as err:
             print("Error fetching user by ID:", err)
+            return None
+
+    @staticmethod
+    def get_user_by_email(email):
+        try:
+            query = "SELECT * FROM users WHERE email = %s"
+            cursor.execute(query, (email,))
+            user = cursor.fetchone()
+            return user  # Return None if user not found
+        except mysql.connector.Error as err:
+            print("Error fetching user by email:", err)
             return None
 
     @staticmethod
@@ -69,6 +81,8 @@ class User:
     @staticmethod
     def delete_user(user_id):
         try:
+            cursor.execute("DELETE FROM user_book_collection WHERE user_id = %s", (user_id,))
+            cursor.execute("DELETE FROM user_book_reviews WHERE user_id = %s", (user_id,))
             cursor.execute("DELETE FROM users WHERE id = %s", (user_id,))
             db.commit()
         except mysql.connector.Error as err:
@@ -90,7 +104,7 @@ class User:
             db.rollback()  # Rollback in case of error
 
     @staticmethod
-    def add_user_review(user_id, book_id, review, rating):
+    def add_user_review(user_id, book_id, review='', rating=None):
         try:
             query = """
             INSERT INTO user_book_reviews (user_id, book_id, review, rating)
@@ -104,7 +118,7 @@ class User:
             db.rollback()  # Rollback in case of error
 
     @staticmethod
-    def get_books_for_user(user_id):
+    def get_user_collection(user_id):
         try:
             # Retrieve books for a specific user
             cursor.execute("""
@@ -113,7 +127,22 @@ class User:
                 WHERE ub.user_id = %s
             """, (user_id,))
             results = cursor.fetchall()
-            return results  # Convert dicts to Book objects
+            return Book(**result) if result else None  # Convert dicts to Book objects
+        except mysql.connector.Error as err:
+            print("Error fetching books for user:", err)
+            return []
+
+    @staticmethod
+    def get_user_book_reviews(user_id):
+        try:
+            # Retrieve books for a specific user
+            cursor.execute("""
+                SELECT b.* FROM books b
+                JOIN user_book_reviews ub ON b.id = ub.book_id
+                WHERE ub.user_id = %s
+            """, (user_id,))
+            results = cursor.fetchall()
+            return Book(**result) if result else None  # Convert dicts to Book objects
         except mysql.connector.Error as err:
             print("Error fetching books for user:", err)
             return []
