@@ -7,9 +7,15 @@ name = "pypi"
 flask = "*"
 mysql-connector-python = "*"
 pipenv = "*"
-pip = "*"
 pandas = "*"
 numpy = "*"
+plotly = "*"
+seaborn = "*"
+asciimatics = "*"
+faker = "*"
+pymysql = "*"
+phonenumbers = "*"
+verify-email = "*"
 
 [dev-packages]
 
