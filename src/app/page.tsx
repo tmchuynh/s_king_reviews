@@ -1,101 +1,133 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React from "react";
+import { Button } from "@/components/ui/button"; // Assuming you have a button component available.
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+const WelcomePage = () => {
+  const router = useRouter();
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="py-4">
+      {/* Header Section */}
+      <header className="text-center mb-12 w-9/12 mx-auto">
+        <h1 className="text-4xl font-bold text-primary mb-4">
+          Welcome to the Stephen King Book Collection
+        </h1>
+        <p className="text-lg text-muted">
+          Explore the haunting worlds created by the master of horror. Browse
+          through Stephen King's extensive library of novels, short stories, and
+          more.
+        </p>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Image */}
+      <div
+        className="relative w-full h-72 bg-cover bg-center mb-12"
+        style={{ backgroundImage: "url(/path/to/stephen-king-image.jpg)" }}
+      >
+        <div className="absolute inset-0 opacity-40"></div>
+      </div>
+
+      {/* Call to Action Section */}
+      <section className="text-center mb-12 w-11/12 mx-auto">
+        <h2 className="text-2xl font-semibold text-primary mb-4">
+          Dive Into Stephen King's World
+        </h2>
+        <p className="text-lg text-muted mb-8">
+          Whether you're a long-time fan or new to his work, there's something
+          for everyone. Find your next read today!
+        </p>
+        <div className="flex justify-center gap-4">
+          <Button onClick={() => router.push("/collection")}>
+            Browse the Collection
+          </Button>
+          <Button variant={"secondary"} onClick={() => router.push("/about")}>
+            Learn More About Stephen King
+          </Button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      <section className="m-12 w-11/12 mx-auto text-center">
+        <h3 className="text-2xl font-semibold text-primary mb-6">
+          Featured Books
+        </h3>
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-9/12 md:w-10/12 mx-auto"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          <CarouselContent>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div className="p-1">
+                  <Card>
+                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                      <span className="text-3xl font-semibold">
+                        {index + 1}
+                      </span>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </section>
+
+      {/* Featured Book Section */}
+      <section className="mb-12">
+        <Card className="bg-card p-8 rounded-lg shadow-lg mx-auto w-11/12 md:w-3/4">
+          <img
+            src="/path/to/the-shining-cover.jpg"
+            alt="The Shining"
+            className="w-32 h-48 mx-auto mb-4"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          <CardContent>
+            <h4 className="text-xl font-bold text-primary mb-2">The Shining</h4>
+            <p className="text-lg text-muted mb-4">
+              Jack Torrance, a struggling writer, accepts a job as the winter
+              caretaker of the Overlook Hotel, located in the remote mountains
+              of Colorado. With his wife and young son, Danny, Jack hopes to
+              turn his life around. But the hotel's dark past slowly begins to
+              take control of his mind and soul...
+            </p>
+          </CardContent>
+          <Button
+            variant={"secondary"}
+            onClick={() => router.push("/books/the-shining")}
+          >
+            Read More
+          </Button>
+        </Card>
+      </section>
+
+      {/* Footer Section */}
+      <footer className="w-full text-center py-6 bg-secondary text-secondary-foreground">
+        <p>© 2025 Stephen King Book Collection | All Rights Reserved</p>
+        <p>
+          <Link href="/privacy-policy" className="underline">
+            Privacy Policy
+          </Link>{" "}
+          |{" "}
+          <Link href="/contact" className="underline">
+            Contact
+          </Link>
+        </p>
       </footer>
     </div>
   );
-}
+};
+
+export default WelcomePage;
