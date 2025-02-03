@@ -30,7 +30,7 @@ const WelcomePage = () => {
         <h1 className="text-4xl font-bold text-primary mb-4">
           Welcome to the Stephen King Book Collection
         </h1>
-        <p className="text-lg text-muted">
+        <p className="text-lg">
           Explore the haunting worlds created by the master of horror. Browse
           through Stephen King's extensive library of novels, short stories, and
           more.
@@ -50,7 +50,7 @@ const WelcomePage = () => {
         <h2 className="text-2xl font-semibold text-primary mb-4">
           Dive Into Stephen King's World
         </h2>
-        <p className="text-lg text-muted mb-8">
+        <p className="text-lg mb-8">
           Whether you're a long-time fan or new to his work, there's something
           for everyone. Find your next read today!
         </p>
@@ -77,7 +77,7 @@ const WelcomePage = () => {
           <CarouselContent>
             {featuredBooks.map((book, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <Card className="bg-card p-4 rounded-lg mx-auto border-2 border-transparent hover:border-border">
+                <Card className="bg-card p-4 rounded-lg mx-auto border-2 border-muted hover:border-border h-full flex flex-col justify-between">
                   <img
                     src={book.imageUrl}
                     alt={book.title}

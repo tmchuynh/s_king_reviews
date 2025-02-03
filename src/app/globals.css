@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 body {
-  font-family: Sigmar, Helvetica, sans-serif;
+  font-family: Oswald, Helvetica, sans-serif;
 }
 
 @layer base {
   :root {
     --radius: 0.5rem;
     --background: #ffffff;
-    --foreground: #c3af89;
+    --foreground: #2d2d2d;
     --card: #fcfcfc;
     --card-foreground: #6a614f;
     --popover: #ffffff;
@@ -131,5 +131,15 @@ body {
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply font-FascinateInline;
+  }
+  h2 {
+    @apply font-Sigmar tracking-wide;
+  }
+  h3 {
+    @apply font-MontserratAlternates;
   }
 }

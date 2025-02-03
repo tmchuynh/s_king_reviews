@@ -3,22 +3,20 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSub,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@radix-ui/react-popover";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
-import { Button } from "./ui/button";
 import { ModeButton } from "./ModeButton";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@radix-ui/react-popover";
-import { MenubarSubContent } from "@radix-ui/react-menubar";
+import { Button } from "./ui/button";
 
 const NavBar = () => {
   const router = useRouter();
@@ -26,7 +24,7 @@ const NavBar = () => {
 
   return (
     <>
-      <Menubar className="lg:hidden xl:flex h-full justify-between hidden mb-10 w-11/12 mx-auto">
+      <Menubar className="lg:hidden xl:flex h-full justify-between hidden mb-10 w-11/12 mx-auto font-Sigmar">
         <MenubarMenu>
           <span className="px-3">Stephen King</span>
         </MenubarMenu>
@@ -91,7 +89,7 @@ const NavBar = () => {
         </div>
       </Menubar>
 
-      <Menubar className="md:flex xl:hidden h-full justify-between hidden mb-10 w-11/12 mx-auto">
+      <Menubar className="md:flex xl:hidden h-full justify-between hidden mb-10 w-11/12 mx-auto font-Sigmar">
         <MenubarMenu>
           <span className="px-3">Stephen King</span>
         </MenubarMenu>
@@ -167,7 +165,7 @@ const NavBar = () => {
       <Popover>
         <PopoverTrigger
           asChild
-          className="md:hidden ml-5"
+          className="md:hidden ml-5 font-Sigmar"
           onClick={() => {
             setIsMenuOpen(true);
           }}
