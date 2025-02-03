@@ -89,16 +89,14 @@ const BookCollection = () => {
           className="w-full text-pretty"
         >
           <div className="flex items-center">
-            <CollapsibleTrigger className="flex items-center">
-              <>
-                <h2 className="text-xl font-semibold text-primary">
-                  Filter by Topic
-                </h2>
-                <Button variant="ghost" size="icon">
-                  <ChevronsUpDown className="h-4 w-4" />
-                  <span className="sr-only">Read Excerpt</span>
-                </Button>
-              </>
+            <h2 className="text-xl font-semibold text-primary">
+              Filter by Topic
+            </h2>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <ChevronsUpDown className="h-4 w-4" />
+                <span className="sr-only">Read Excerpt</span>
+              </Button>
             </CollapsibleTrigger>
           </div>
           <CollapsibleContent className="space-y-2">
