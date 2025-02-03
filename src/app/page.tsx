@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button"; // Assuming you have a button component available.
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import {
   Carousel,
@@ -12,9 +11,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { featuredBooks } from "@/lib/constants";
+import { bookURLFormat } from "@/lib/utils";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@radix-ui/react-collapsible";
+import { ChevronsUpDown } from "lucide-react";
 
 const WelcomePage = () => {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="py-4">
       {/* Header Section */}
@@ -56,28 +64,56 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section className="m-12 w-11/12 mx-auto text-center">
-        <h3 className="text-2xl font-semibold text-primary mb-6">
+      <section className="m-12 w-11/12 mx-auto">
+        <h3 className="text-2xl font-semibold text-primary mb-6 text-center">
           Featured Books
         </h3>
         <Carousel
           opts={{
             align: "start",
           }}
-          className="w-9/12 md:w-10/12 mx-auto"
+          className="w-9/12 md:w-10/12 mx-auto my-4"
         >
           <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {featuredBooks.map((book, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <span className="text-3xl font-semibold">
-                        {index + 1}
-                      </span>
-                    </CardContent>
-                  </Card>
-                </div>
+                <Card className="bg-card p-4 rounded-lg mx-auto border-2 border-transparent hover:border-border">
+                  <img
+                    src={book.imageUrl}
+                    alt={book.title}
+                    className="w-32 h-48 aspect-auto object-contain object-center mx-auto mb-4"
+                  />
+                  <CardContent>
+                    <Collapsible
+                      open={isOpen}
+                      onOpenChange={setIsOpen}
+                      className="w-full text-pretty"
+                    >
+                      <div className="flex items-center">
+                        <CollapsibleTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <ChevronsUpDown className="h-4 w-4" />
+                            <span className="sr-only">Read Excerpt</span>
+                          </Button>
+                        </CollapsibleTrigger>
+                        <h4 className="text-xl font-bold">{book.title}</h4>
+                      </div>
+                      <CollapsibleContent className="space-y-2">
+                        <p className="text-muted">{book.excerpt}</p>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      variant={"secondary"}
+                      onClick={() => router.push(bookURLFormat(book.title))}
+                      className="mx-auto py-6"
+                    >
+                      Read More About
+                      <br /> {book.title}
+                    </Button>
+                  </CardFooter>
+                </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -86,45 +122,30 @@ const WelcomePage = () => {
         </Carousel>
       </section>
 
-      {/* Featured Book Section */}
-      <section className="mb-12">
-        <Card className="bg-card p-8 rounded-lg shadow-lg mx-auto w-11/12 md:w-3/4">
-          <img
-            src="/path/to/the-shining-cover.jpg"
-            alt="The Shining"
-            className="w-32 h-48 mx-auto mb-4"
-          />
-          <CardContent>
-            <h4 className="text-xl font-bold text-primary mb-2">The Shining</h4>
-            <p className="text-lg text-muted mb-4">
-              Jack Torrance, a struggling writer, accepts a job as the winter
-              caretaker of the Overlook Hotel, located in the remote mountains
-              of Colorado. With his wife and young son, Danny, Jack hopes to
-              turn his life around. But the hotel's dark past slowly begins to
-              take control of his mind and soul...
-            </p>
-          </CardContent>
-          <Button
-            variant={"secondary"}
-            onClick={() => router.push("/books/the-shining")}
-          >
-            Read More
-          </Button>
-        </Card>
-      </section>
-
       {/* Footer Section */}
       <footer className="w-full text-center py-6 bg-secondary text-secondary-foreground">
         <p>© 2025 Stephen King Book Collection | All Rights Reserved</p>
-        <p>
-          <Link href="/privacy-policy" className="underline">
-            Privacy Policy
-          </Link>{" "}
-          |{" "}
-          <Link href="/contact" className="underline">
-            Contact
-          </Link>
-        </p>
+        <Button variant={"link"} onClick={() => router.push("/about")}>
+          About
+        </Button>
+        <Button variant={"link"} onClick={() => router.push("/collections")}>
+          Collections
+        </Button>
+        <Button variant={"link"} onClick={() => router.push("/library")}>
+          Library
+        </Button>
+        <Button variant={"link"} onClick={() => router.push("/favorites")}>
+          Favorites
+        </Button>
+        <Button variant={"link"} onClick={() => router.push("/faq")}>
+          FAQs
+        </Button>
+        <Button variant={"link"} onClick={() => router.push("/donate")}>
+          Donate
+        </Button>
+        <Button variant={"link"} onClick={() => router.push("/contact-us")}>
+          Contact Us
+        </Button>
       </footer>
     </div>
   );
