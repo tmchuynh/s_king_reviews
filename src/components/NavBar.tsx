@@ -1,4 +1,11 @@
-import { Menubar, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSub,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,6 +18,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@radix-ui/react-popover";
+import { MenubarSubContent } from "@radix-ui/react-menubar";
 
 const NavBar = () => {
   const router = useRouter();
@@ -29,6 +37,46 @@ const NavBar = () => {
               className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
             >
               Home
+            </a>
+          </MenubarMenu>
+          <MenubarMenu>
+            <a
+              onClick={() => router.push("/about")}
+              className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+            >
+              About
+            </a>
+          </MenubarMenu>
+          <MenubarMenu>
+            <a
+              onClick={() => router.push("/collections")}
+              className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+            >
+              Collections
+            </a>
+          </MenubarMenu>
+          <MenubarMenu>
+            <a
+              onClick={() => router.push("/library")}
+              className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+            >
+              Library
+            </a>
+          </MenubarMenu>
+          <MenubarMenu>
+            <a
+              onClick={() => router.push("/favorites")}
+              className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+            >
+              Favorites
+            </a>
+          </MenubarMenu>
+          <MenubarMenu>
+            <a
+              onClick={() => router.push("/faq")}
+              className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+            >
+              FAQs
             </a>
           </MenubarMenu>
           <MenubarMenu>
@@ -58,10 +106,58 @@ const NavBar = () => {
           </MenubarMenu>
           <MenubarMenu>
             <a
+              onClick={() => router.push("/about")}
+              className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+            >
+              About
+            </a>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger className="flex justify-between w-full text-sm md:text-md lg:text-xl mx-4 hover:text-primary">
+              Books
+              <FaChevronDown />
+            </MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                <a
+                  onClick={() => router.push("/collections")}
+                  className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+                >
+                  Collections
+                </a>
+              </MenubarItem>
+              <MenubarItem>
+                <a
+                  onClick={() => router.push("/library")}
+                  className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+                >
+                  Library
+                </a>
+              </MenubarItem>
+              <MenubarItem>
+                <a
+                  onClick={() => router.push("/favorites")}
+                  className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+                >
+                  Favorites
+                </a>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <a
+              onClick={() => router.push("/faq")}
+              className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
+            >
+              FAQs
+            </a>
+          </MenubarMenu>
+          <MenubarMenu>
+            <a
               onClick={() => router.push("/contact-us")}
               className="text-sm md:text-md lg:text-xl mx-4 hover:text-primary"
             >
-              Contact Us
+              Contact
             </a>
           </MenubarMenu>
           <ModeButton />
