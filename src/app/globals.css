@@ -2,20 +2,134 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  font-family: Sigmar, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --radius: 0.5rem;
+    --background: #ffffff;
+    --foreground: #c3af89;
+    --card: #ffffff;
+    --card-foreground: #c3af89;
+    --popover: #ffffff;
+    --popover-foreground: #c3af89;
+    --primary: #6d604e;
+    --primary-foreground: #f9f9f9;
+    --secondary: #c0ab7a;
+    --secondary-foreground: #323232;
+    --muted: #c6bdb1;
+    --muted-foreground: #f2e5bb;
+    --accent-1: #f3f3f3;
+    --accent-2: #f3f3f3;
+    --accent-3: #f3f3f3;
+    --accent-4: #f3f3f3;
+    --accent-5: #f3f3f3;
+    --accent-6: #f3f3f3;
+    --accent-foreground: #dbc38c;
+    --destructive: #ff2f2f;
+    --destructive-foreground: #9f8d73;
+    --border: #e2e2e2;
+    --input: #e2e2e2;
+    --ring: #c3af89;
+    --chart-1: #fa4d4d;
+    --chart-2: #ad9433;
+    --chart-3: #c64c3e;
+    --chart-4: #6fa95a;
+    --chart-5: #4a9a42;
+    --chart-6: #6fa95a;
+  }
+
+  .dark {
+    --background: #2d2d2d;
+    --foreground: #f2e5bb;
+    --card: #2d2d2d;
+    --card-foreground: #f2e5bb;
+    --popover: #2d2d2d;
+    --popover-foreground: #f2e5bb;
+    --primary: #dbc38c;
+    --primary-foreground: #9f8d73;
+    --secondary: #f2e5bb;
+    --secondary-foreground: #9f8d73;
+    --muted: #f2e5bb;
+    --muted-foreground: #9f8d73;
+    --accent-1: #f3f3f3;
+    --accent-2: #f3f3f3;
+    --accent-3: #f3f3f3;
+    --accent-4: #f3f3f3;
+    --accent-5: #f3f3f3;
+    --accent-6: #f3f3f3;
+    --accent-foreground: #9f8d73;
+    --destructive: #ff4f4f;
+    --destructive-foreground: #dbc38c;
+    --border: #4c4c4c;
+    --input: #4c4c4c;
+    --ring: #dbc38c;
+    --chart-1: #d0b14c;
+    --chart-2: #9e6f2b;
+    --chart-3: #4d3333;
+    --chart-4: #aa3e9e;
+    --chart-5: #f06e5d;
+    --chart-6: #4d3333;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: "FascinateInline";
+  src: url("/fonts/FascinateInline-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sigmar";
+  src: url("/fonts/Sigmar-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PoiretOne";
+  src: url("/fonts/PoiretOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MontserratAlternates";
+  src: url("/fonts/MontserratAlternates-SemiBold.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LeagueSpartan";
+  src: url("/fonts/LeagueSpartan-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlumniSansPinstripe";
+  src: url("/fonts/AlumniSansPinstripe-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
