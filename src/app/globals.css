@@ -142,4 +142,7 @@ body {
   h3 {
     @apply font-MontserratAlternates;
   }
+  p {
+    @apply lg:text-lg 2xl:text-xl my-3;
+  }
 }

@@ -25,7 +25,7 @@ const BookCard = ({
       <img src={imageUrl} alt={title} className="mx-auto h-64 object-cover" />
       <div className="p-4">
         <h3 className="text-lg font-semibold text-primary">{title}</h3>
-        <p className="text-sm text-muted mt-2">{excerpt}</p>
+        <p className="text-sm mt-2">{excerpt}</p>
       </div>
     </div>
   );
@@ -77,7 +77,7 @@ const BookCollection = () => {
 
   return (
     <div className="w-11/12 mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-primary text-center mb-8">
+      <h1 className="text-4xl font-bold text-primary text-center mb-8">
         Stephen King Books
       </h1>
 

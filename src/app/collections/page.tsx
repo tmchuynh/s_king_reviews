@@ -4,7 +4,7 @@ import React from "react";
 const BookCollectionPage: React.FC = () => {
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-4xl font-bold text-center mb-8 text-primary">
+      <h1 className="text-4xl font-bold text-primary text-center mb-8">
         Stephen King Book Collections
       </h1>
       <div>
