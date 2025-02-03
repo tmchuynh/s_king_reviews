@@ -11,8 +11,8 @@ body {
     --radius: 0.5rem;
     --background: #ffffff;
     --foreground: #c3af89;
-    --card: #ffffff;
-    --card-foreground: #c3af89;
+    --card: #fcfcfc;
+    --card-foreground: #6a614f;
     --popover: #ffffff;
     --popover-foreground: #c3af89;
     --primary: #6d604e;
